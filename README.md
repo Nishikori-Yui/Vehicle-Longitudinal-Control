@@ -94,13 +94,15 @@ Vehicle-Longitudinal-Control/
    python Simulate_GUI.py
    ```
 
-   在图形界面中选择控制算法、配置参数，仿真结束后自动展示结果,并在 `results/gui_figures/` 目录输出图表
+   在图形界面中选择控制算法、配置参数，仿真结束后自动展示结果,并在 `results/gui_figures/` 目录输出图表。
 3.  **报告论文图片复现**
+   
+      ```bash
+      python vlc_report.py
+      ```
+   
+      脚本将依次对依据论文要求输出所需图表，并在 `results/report/` 目录输出图表与指标报告。
 
-   ```bash
-   python vlc_report.py
-   ```
-   脚本将依次对依据论文要求输出所需图表，并在 `results/report/` 目录输出图表与指标报告。
 
 ## 六、参数配置 (Configuration)
 
@@ -113,34 +115,4 @@ Vehicle-Longitudinal-Control/
 * 误差与牵引力命令对比
 * MSE、超调、能耗雷达图与热力图
 * 支持导出为 PNG、PDF 格式
-
-## 八、测试与验证 (Testing)
-
-建议使用 `pytest` 编写单元测试，覆盖：
-
-1. `models/` 中动力学与执行器模型输出一致性；
-2. 各控制器在特定工况下的稳定性与限幅行为；
-3. `utils/metrics.py` 指标计算正确性。
-
-## 九、未来展望 (Future Directions)
-
-* **纵横向一体化 MIMO-MPC**：联合纵横向状态与输入，实现多目标优化
-* **环境扰动建模**：引入坡度、侧风、路面摩擦变化等非平稳扰动
-* **硬件在环 (HIL)**：与 ROS、Carsim 或真实 ECU 连接，验证算法在真实环境下的性能
-* **学习型控制**：基于强化学习或在线自适应，动态调优控制器参数
-
-## 十、贡献者指南 (Contributing)
-
-1. Fork 本仓库并新建 feature 分支
-2. 在 `models/`、`controllers/`、`utils/` 或 GUI 模块中实现改进
-3. 提交合并请求（Pull Request），并附带相关单元测试
-
-## 十一、许可证 (License)
-
-本项目采用 MIT 许可证，详见 [LICENSE](LICENSE)。
-
----
-
-*作者：唯*
-*日期：2025-05-12*
 
