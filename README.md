@@ -63,7 +63,7 @@ Vehicle-Longitudinal-Control/
 1. 克隆仓库：
 
    ```bash
-   git clone https://github.com/Nishikori-Yui/Vehicle_Longitudinal_Control.git
+   git clone https://github.com/Nishikori-Yui/Vehicle-Longitudinal-Control.git
    cd Vehicle-Longitudinal-Control
    ```
 2. 创建并激活虚拟环境（以 `venv` 为例）：
