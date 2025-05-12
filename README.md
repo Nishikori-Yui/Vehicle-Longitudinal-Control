@@ -54,6 +54,7 @@ Vehicle-Longitudinal-Control/
 ├─ Simulate_GUI_old-fashioned.py   # Tkinter GUI （旧版，已废弃）
 ├─ Simulate_GUI.py                 # GUI 仿真入口
 ├─ vlc_report.py                   # 报告撰写使用
+├─ Report_Public.pdf               # 分析报告
 ├─ requirements.txt                # Python 依赖
 └─ README.md                       # 项目说明文档
 ````
