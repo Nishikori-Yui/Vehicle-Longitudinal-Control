@@ -27,7 +27,6 @@ class GuiApp(tk.Tk):
         self.image_index = 0
         self.categories = {}
         self._create_widgets()
-        # 隐藏图片查看区，运行仿真后显示
         self.img_frame.grid_remove()
 
     def _create_widgets(self):
