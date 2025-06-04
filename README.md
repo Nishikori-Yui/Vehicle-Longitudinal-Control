@@ -107,7 +107,7 @@ Vehicle-Longitudinal-Control/
 
 ## 六、参数配置 (Configuration)
 
-* `configs/vehicle_params.py`：集中管理车辆质量、空气阻力系数、滚动阻力系数、执行器自然频率／阻尼比、最大驱动力／制动力、ABS 参数等语塞变量；
+* `configs/vehicle_params.py`：集中管理车辆质量、空气阻力系数、滚动阻力系数、执行器自然频率／阻尼比、最大驱动力／制动力、ABS 参数等参数变量；
 * 可在 GUI 中修改参数实现权重和限幅参数的动态调整。
 
 ## 七、结果可视化 (Visualization)
