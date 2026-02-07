@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual env
+.venv/
+
+# Generated results/outputs
+results/
+
+# OS
+.DS_Store

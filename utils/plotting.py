@@ -148,21 +148,27 @@ def plot_lateral_tracking(t_lat, x_ref, y_ref, x, y, delta_hist, lat_error, fig_
 
 def plot_metrics_bar(metrics_df, fig_dir):
     """
-    绘制性能指标柱状图，对比不同控制器在各速度下的 MSE、Overshoot 和 Energy。
+    绘制性能指标柱状图，对比不同控制器在各速度下的指标。
     """
     os.makedirs(fig_dir, exist_ok=True)
-    # Pivot 数据
-    pivot_mse = metrics_df.pivot(index='Speed (m/s)', columns='Controller', values='MSE')
-    pivot_os  = metrics_df.pivot(index='Speed (m/s)', columns='Controller', values='Overshoot')
-    pivot_en  = metrics_df.pivot(index='Speed (m/s)', columns='Controller', values='Energy')
-    # 绘制每个指标
-    for name, pivot in [('mse', pivot_mse), ('overshoot', pivot_os), ('energy', pivot_en)]:
-        pivot.plot(kind='bar')
-        plt.title(name.upper() + ' Comparison')
-        plt.xlabel('Speed (m/s)'); plt.ylabel(name)
-        plt.grid(axis='y')
+    metric_map = [
+        ("MSE", "mse"),
+        ("Overshoot", "overshoot"),
+        ("Energy", "energy"),
+        ("Jerk", "jerk"),
+        ("LatRMS", "lat_rms"),
+    ]
+    for col, name in metric_map:
+        if col not in metrics_df.columns:
+            continue
+        pivot = metrics_df.pivot(index="Speed (m/s)", columns="Controller", values=col)
+        pivot.plot(kind="bar")
+        plt.title(name.upper() + " Comparison")
+        plt.xlabel("Speed (m/s)")
+        plt.ylabel(name)
+        plt.grid(axis="y")
         plt.tight_layout()
-        plt.savefig(os.path.join(fig_dir, f'bar_{name}.png'))
+        plt.savefig(os.path.join(fig_dir, f"bar_{name}.png"))
         plt.close()
 
 
