@@ -19,9 +19,8 @@
    - 最大超调量 (Overshoot)  
    - 能量消耗 (Energy Consumption)  
 
-4. **可视化与 GUI 支持**  
+4. **可视化支持**  
    - Matplotlib 绘制速度曲线、误差曲线、雷达图、热力图等  
-   - 基于 Tkinter 的交互式图形界面  
 
 5. **模块化与可扩展**  
    - 清晰的目录与模块划分  
@@ -51,8 +50,6 @@ Vehicle-Longitudinal-Control/
 │   └─ plotting.py                 # 结果可视化函数
 │
 ├─ Simulate_CLI.py                 # CLI 仿真入口
-├─ Simulate_GUI_old-fashioned.py   # Tkinter GUI （旧版，已废弃）
-├─ Simulate_GUI.py                 # GUI 仿真入口
 ├─ vlc_report.py                   # 报告撰写使用
 ├─ Report_Public.pdf               # 分析报告
 ├─ requirements.txt                # Python 依赖
@@ -89,14 +86,7 @@ Vehicle-Longitudinal-Control/
 
    脚本将依次对预设目标速度工况运行所有控制器，并在 `results/cli_figures/` 目录输出图表与指标报告。
 
-2. **GUI 交互式仿真**
-
-   ```bash
-   python Simulate_GUI.py
-   ```
-
-   在图形界面中选择控制算法、配置参数，仿真结束后自动展示结果,并在 `results/gui_figures/` 目录输出图表。
-3.  **报告论文图片复现**
+2.  **报告论文图片复现**
    
       ```bash
       python vlc_report.py
@@ -108,7 +98,7 @@ Vehicle-Longitudinal-Control/
 ## 六、参数配置 (Configuration)
 
 * `configs/vehicle_params.py`：集中管理车辆质量、空气阻力系数、滚动阻力系数、执行器自然频率／阻尼比、最大驱动力／制动力、ABS 参数等参数变量；
-* 可在 GUI 中修改参数实现权重和限幅参数的动态调整。
+* 可通过脚本修改参数实现权重和限幅参数的动态调整。
 
 ## 七、结果可视化 (Visualization)
 
@@ -116,4 +106,3 @@ Vehicle-Longitudinal-Control/
 * 误差与牵引力命令对比
 * MSE、超调、能耗雷达图与热力图
 * 支持导出为 PNG、PDF 格式
-
