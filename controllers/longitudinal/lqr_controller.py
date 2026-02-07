@@ -41,7 +41,10 @@ class LQRController:
 
     def step(self, state, v_ref, dt):
         _ = dt
+        if not np.isfinite(state.u):
+            return 0.0
         e = state.u - v_ref
+        e = float(np.clip(e, -self.p.u_max, self.p.u_max))
         K = self._compute_gain(v_ref)
         F_ff = longitudinal_resistance(v_ref, self.p, grade=self._grade)
         u = F_ff - K * e

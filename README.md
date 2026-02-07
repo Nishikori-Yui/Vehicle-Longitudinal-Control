@@ -102,7 +102,7 @@ Vehicle-Longitudinal-Control/
    python Simulate_CLI.py
    ```
 
-   脚本将依次对预设目标速度工况运行所有控制器，并在 `results/cli_runs/<timestamp>/` 目录输出图表与指标报告。
+   脚本将依次对预设目标速度工况运行所有控制器，并在 `results/<timestamp>/` 目录输出图表与指标报告。
 
 2.  **旧版报告图片复现（历史）**
    

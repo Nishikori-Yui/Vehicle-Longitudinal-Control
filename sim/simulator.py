@@ -96,6 +96,30 @@ def simulate(
 
         # 状态更新
         state = step_dynamics(state, fx_act[i], delta[i], params, mu, grade, dt)
+        if not np.all(np.isfinite([state.x, state.y, state.psi, state.u, state.v, state.r])):
+            # 发生数值发散，后续填充最后有效值
+            state = VehicleState(
+                x=x[i],
+                y=y[i],
+                psi=psi[i],
+                u=u[i],
+                v=v[i],
+                r=r[i],
+            )
+            x[i + 1 :] = x[i]
+            y[i + 1 :] = y[i]
+            psi[i + 1 :] = psi[i]
+            u[i + 1 :] = u[i]
+            v[i + 1 :] = v[i]
+            r[i + 1 :] = r[i]
+            fx_cmd[i + 1 :] = fx_cmd[i]
+            fx_act[i + 1 :] = fx_act[i]
+            delta[i + 1 :] = delta[i]
+            v_ref[i + 1 :] = v_ref[i]
+            mu_hist[i + 1 :] = mu_hist[i]
+            grade_hist[i + 1 :] = grade_hist[i]
+            lat_error[i + 1 :] = lat_error[i]
+            break
 
         x[i + 1], y[i + 1], psi[i + 1] = state.x, state.y, state.psi
         u[i + 1], v[i + 1], r[i + 1] = state.u, state.v, state.r

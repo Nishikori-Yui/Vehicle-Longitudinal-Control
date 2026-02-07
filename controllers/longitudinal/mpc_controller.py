@@ -29,7 +29,7 @@ class MPCControllerMultiObjective:
         v_ref: 目标速度
         dt:    时间步长
         """
-        v_curr = state.u
+        v_curr = float(state.u if np.isfinite(state.u) else 0.0)
 
         def obj(u):
             v_p = v_curr
@@ -48,10 +48,11 @@ class MPCControllerMultiObjective:
             return cost
 
         # 优化初值与约束
-        u0 = np.ones(self.N) * self.u_prev
+        u_prev = float(self.u_prev if np.isfinite(self.u_prev) else 0.0)
+        u0 = np.ones(self.N) * u_prev
         bounds = [(self.p.F_min, self.p.F_max) for _ in range(self.N)]
         res = minimize(obj, u0, method="L-BFGS-B", bounds=bounds, options={'maxiter': 100})
 
-        u_cmd = float(res.x[0]) if res.success else float(u0[0])
+        u_cmd = float(res.x[0]) if res.success and np.isfinite(res.x[0]) else float(u0[0])
         self.u_prev = u_cmd
         return u_cmd

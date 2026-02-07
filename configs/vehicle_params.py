@@ -38,6 +38,11 @@ class VehicleParams:
         # 环境默认值
         self.mu0 = 0.9       # 干燥路面典型附着
         self.grade0 = 0.0    # 默认坡度 (tan(theta))
+        # 数值安全限制
+        self.u_max = 60.0    # 最大纵向速度 (m/s)
+        self.v_max = 15.0    # 最大横向速度 (m/s)
+        self.r_max = 2.0     # 最大偏航角速度 (rad/s)
+        self.alpha_max = 0.35  # 最大侧偏角 (rad)
 
         if preset:
             self.apply_preset(preset)

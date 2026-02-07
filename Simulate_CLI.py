@@ -114,7 +114,7 @@ def main():
 
     # 保存指标
     metrics_df = pd.DataFrame(metrics_list)
-    run_dir = os.path.join("results", "cli_runs", datetime.now().strftime("%Y%m%d_%H%M%S"))
+    run_dir = os.path.join("results", datetime.now().strftime("%Y%m%d_%H%M%S"))
     os.makedirs(run_dir, exist_ok=True)
     metrics_df.to_csv(os.path.join(run_dir, "metrics_summary.csv"), index=False)
 
