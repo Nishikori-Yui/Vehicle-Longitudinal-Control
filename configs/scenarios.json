@@ -7,6 +7,10 @@
   "scenarios": [
     {"name": "step_10ms", "mode": "constant", "v_ref": 10.0, "mu": 0.9, "grade": 0.0},
     {"name": "step_20ms", "mode": "constant", "v_ref": 20.0, "mu": 0.9, "grade": 0.0},
-    {"name": "step_30ms", "mode": "constant", "v_ref": 30.0, "mu": 0.9, "grade": 0.0}
+    {"name": "step_30ms", "mode": "constant", "v_ref": 30.0, "mu": 0.9, "grade": 0.0},
+    {"name": "start_stop", "mode": "speed_profile", "mu": 0.9, "grade": 0.0,
+     "points": [[0, 0], [5, 10], [15, 20], [25, 0], [40, 0]]},
+    {"name": "grade_step", "mode": "grade_step", "v_ref": 20.0, "grade": 0.0, "grade2": 0.05, "step_time": 10.0},
+    {"name": "mu_step", "mode": "mu_step", "v_ref": 20.0, "mu": 0.9, "mu2": 0.6, "step_time": 10.0}
   ]
 }

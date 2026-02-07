@@ -29,6 +29,21 @@ def step_profile(step_time: float, v1: float, v2: float) -> Callable[[float], fl
     return _f
 
 
+def piecewise_linear_profile(points: list[tuple[float, float]]) -> Callable[[float], float]:
+    points_sorted = sorted(points, key=lambda x: x[0])
+    times = np.array([p[0] for p in points_sorted], dtype=float)
+    values = np.array([p[1] for p in points_sorted], dtype=float)
+
+    def _f(t: float) -> float:
+        if t <= times[0]:
+            return float(values[0])
+        if t >= times[-1]:
+            return float(values[-1])
+        return float(np.interp(t, times, values))
+
+    return _f
+
+
 def build_circle_path(radius: float, num_pts: int = 500) -> Dict[str, np.ndarray]:
     angles = np.linspace(0, 2 * np.pi, num_pts)
     x = radius * np.sin(angles)
@@ -129,6 +144,18 @@ def load_scenarios(json_path: str, default_mu: float, default_grade: float) -> l
             g2 = float(sc.get("grade2", grade))
             t = float(sc.get("step_time", 10.0))
             scenarios.append(build_grade_step_scenario(v_ref, grade, g2, t))
+        elif mode == "speed_profile":
+            points = sc.get("points", [])
+            if not points:
+                points = [(0.0, v_ref)]
+            v_profile = piecewise_linear_profile([(float(t), float(v)) for t, v in points])
+            scenarios.append(Scenario(
+                name=name,
+                grade_profile=constant_profile(grade),
+                mu_profile=constant_profile(mu),
+                v_ref_profile=v_profile,
+                path=path,
+            ))
         else:
             raise ValueError(f"Unknown scenario mode: {mode}")
     return scenarios

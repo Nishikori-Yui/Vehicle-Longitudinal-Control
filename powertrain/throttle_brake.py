@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 from powertrain.base import Powertrain
+from controllers.longitudinal.abs_controller import ABSController
 
 
 class ThrottleBrakePowertrain(Powertrain):
@@ -10,14 +11,18 @@ class ThrottleBrakePowertrain(Powertrain):
     - cmd 可以是 float (期望纵向力) 或 dict(throttle, brake)
     - throttle/brake 均为 0~1
     """
-    def __init__(self, p):
+    def __init__(self, p, abs_enabled: bool = False):
         self.p = p
+        self.abs_enabled = abs_enabled
+        self.abs = ABSController(p) if abs_enabled else None
         self.f_drive = 0.0
         self.f_brake = 0.0
 
     def reset(self) -> None:
         self.f_drive = 0.0
         self.f_brake = 0.0
+        if self.abs:
+            self.abs.reset()
 
     def _force_to_tb(self, cmd: float):
         if cmd >= 0:
@@ -46,5 +51,9 @@ class ThrottleBrakePowertrain(Powertrain):
         self.f_drive += (dt / self.p.tau_drive) * (target_drive - self.f_drive)
         self.f_brake += (dt / self.p.tau_brake) * (target_brake - self.f_brake)
 
-        fx = self.f_drive - self.f_brake
+        brake_force = -self.f_brake
+        if self.abs_enabled and self.abs and brake_force < 0.0:
+            brake_force = self.abs.step(state.u, brake_force, dt)
+
+        fx = self.f_drive + brake_force
         return float(np.clip(fx, self.p.F_min, self.p.F_max))

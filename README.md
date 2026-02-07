@@ -102,7 +102,7 @@ Vehicle-Longitudinal-Control/
    python Simulate_CLI.py
    ```
 
-   脚本将依次对预设目标速度工况运行所有控制器，并在 `results/cli_figures/` 目录输出图表与指标报告。
+   脚本将依次对预设目标速度工况运行所有控制器，并在 `results/cli_runs/<timestamp>/` 目录输出图表与指标报告。
 
 2.  **旧版报告图片复现（历史）**
    
@@ -120,6 +120,7 @@ Vehicle-Longitudinal-Control/
 * `configs/scenarios.py`：集中管理坡度、附着系数、目标速度等工况函数与道路路径构造。
 * `configs/scenarios.json`：默认工况配置，可直接修改实现批量工况测试。
 * 可在代码中使用 `VehicleParams(preset="mid_sedan")` 载入中型燃油轿车参数集。
+* `Simulate_CLI.py` 中提供 `use_abs` 开关，用于验证 ABS 对制动通道的影响。
 * 可通过脚本修改参数实现权重和限幅参数的动态调整。
 
 ## 七、结果可视化 (Visualization)

@@ -28,3 +28,40 @@ def compute_lateral_rms(lat_error_arr):
     if len(lat_error_arr) == 0:
         return 0.0
     return float(np.sqrt(np.mean(np.asarray(lat_error_arr) ** 2)))
+
+
+def compute_iae(error_arr, dt):
+    """
+    计算 IAE (Integral of Absolute Error)
+    """
+    if len(error_arr) == 0:
+        return 0.0
+    return float(np.sum(np.abs(error_arr)) * dt)
+
+
+def compute_itae(error_arr, dt):
+    """
+    计算 ITAE (Integral of Time-weighted Absolute Error)
+    """
+    if len(error_arr) == 0:
+        return 0.0
+    t = np.arange(len(error_arr)) * dt
+    return float(np.sum(t * np.abs(error_arr)) * dt)
+
+
+def compute_max_lateral_error(lat_error_arr):
+    """
+    计算最大横向误差
+    """
+    if len(lat_error_arr) == 0:
+        return 0.0
+    return float(np.max(np.asarray(lat_error_arr)))
+
+
+def compute_energy_per_distance(energy, distance):
+    """
+    计算单位距离能耗（N）
+    """
+    if distance <= 1e-6:
+        return 0.0
+    return float(energy / distance)
